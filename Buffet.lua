@@ -64,6 +64,7 @@ function Buffet:PLAYER_LOGIN()
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("BAG_UPDATE")
 	self:RegisterEvent("PLAYER_LEVEL_UP")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	self:Scan()
 
@@ -120,6 +121,7 @@ function Buffet:Scan()
 	dirty = false
 end
 
+Buffet.PLAYER_ENTERING_WORLD = Buffet.Scan
 
 function Buffet:Edit(name, substring, food, pot, stone, shift)
 	local macroid = GetMacroIndexByName(name)
