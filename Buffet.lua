@@ -27,6 +27,23 @@ end
 for i,v in pairs(items) do bests[i], items[i] = {}, TableStuffer(string.split("\n", v)) end
 
 
+local function FindHerbalsimLevel(...)
+	for i = 1, select('#', ...) do
+		local _, icon, level = GetProfessionInfo((select(i, ...)))
+		if icon == [[Interface\Icons\Trade_Herbalism]] then
+			return level
+		end
+	end
+end
+
+local herbalismLevel
+local function GetHerbalismLevel(...)
+	if not herbalismLevel then
+		herbalismLevel = FindHerbalsimLevel(GetProfessions())
+	end
+	return herbalismLevel
+end
+
 -----------------------------
 --      Event Handler      --
 -----------------------------
@@ -57,6 +74,7 @@ function Buffet:PLAYER_LOGIN()
 	self:RegisterEvent("BAG_UPDATE")
 	self:RegisterEvent("PLAYER_LEVEL_UP")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent("SKILL_LINES_CHANGED")
 
 	self:Scan()
 
@@ -64,6 +82,10 @@ function Buffet:PLAYER_LOGIN()
 	self.PLAYER_LOGIN = nil
 end
 
+function Buffet:SKILL_LINES_CHANGED()
+	herbalismLevel = nil
+	return self:BAG_UPDATE()
+end
 
 function Buffet:PLAYER_LOGOUT()
 	for i,v in pairs(defaults) do if self.db[i] == v then self.db[i] = nil end end
@@ -81,10 +103,21 @@ function Buffet:BAG_UPDATE()
 end
 Buffet.PLAYER_LEVEL_UP = Buffet.BAG_UPDATE
 
-
 function Buffet:Scan()
 	for _,t in pairs(bests) do for i in pairs(t) do t[i] = nil end end
 	local mylevel = UnitLevel("player")
+
+	local herbalismLevel = GetHerbalismLevel()
+	if herbalismLevel ~= self.herbalismLevel then
+		self.herbalismLevel = herbalismLevel
+		if herbalismLevel >= 425 then
+			items.food[63122] = 96000
+			items.water[63122] = 72000
+		else
+			items.food[63122] = nil
+			items.water[63122] = nil
+		end
+	end
 
 	for bag=0,4 do
 		for slot=1,GetContainerNumSlots(bag) do
