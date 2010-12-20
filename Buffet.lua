@@ -29,11 +29,15 @@ for i,v in pairs(items) do bests[i], items[i] = {}, TableStuffer(string.split("\
 
 local function FindHerbalsimLevel(...)
 	for i = 1, select('#', ...) do
-		local _, icon, level = GetProfessionInfo((select(i, ...)))
-		if icon == [[Interface\Icons\Trade_Herbalism]] then
-			return level
+		local index = select(i, ...)
+		if type(index) == "number" then
+			local _, icon, level = GetProfessionInfo(index)
+			if icon == [[Interface\Icons\Trade_Herbalism]] then
+				return level
+			end
 		end
 	end
+	return 0
 end
 
 local herbalismLevel
