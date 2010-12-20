@@ -111,17 +111,7 @@ function Buffet:Scan()
 	for _,t in pairs(bests) do for i in pairs(t) do t[i] = nil end end
 	local mylevel = UnitLevel("player")
 
-	local herbalismLevel = GetHerbalismLevel()
-	if herbalismLevel ~= self.herbalismLevel then
-		self.herbalismLevel = herbalismLevel
-		if herbalismLevel >= 425 then
-			items.food[63122] = 96000
-			items.water[63122] = 72000
-		else
-			items.food[63122] = nil
-			items.water[63122] = nil
-		end
-	end
+	allitems[63122] = GetHerbalismLevel() >= 425
 
 	for bag=0,4 do
 		for slot=1,GetContainerNumSlots(bag) do
