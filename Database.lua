@@ -582,3 +582,4 @@ ns.pvpwater = [[
 68140:96000
 ]]
 
+ns.bonusfood = ""

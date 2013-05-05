@@ -37,6 +37,7 @@ if PT3 then
 		water     = "Consumable.Water.Basic",
 		food      = "Consumable.Food.Edible.Basic.Non-Conjured",
 		conjfood  = "Consumable.Food.Edible.Basic.Conjured",
+		bonusfood = "Consumable.Food.Bonus",
 		conjwater = "Consumable.Food.Edible.Combo.Conjured",
 		percfood  = "Consumable.Food.Percent.Basic",
 		percwater = "Consumable.Water.Percentage",
@@ -163,7 +164,7 @@ function Buffet:Scan()
 		food = bests.conjfood.id or bests.hstone.id
 		water = bests.conjwater.id or bests.pvpwater.id or bests.mstone.id
 	else
-		food = bests.conjfood.id or bests.percfood.id or bests.food.id or bests.hstone.id or bests.hppot.id
+		food = bests.conjfood.id or bests.percfood.id or bests.food.id or bests.bonusfood.id or bests.hstone.id or bests.hppot.id
 		hpot = bests.hppot.id
 		water = bests.conjwater.id or bests.percwater.id or bests.water.id or bests.mstone.id or bests.mppot.id
 		mpot = bests.mppot.id
