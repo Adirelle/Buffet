@@ -130,13 +130,20 @@ function Buffet:Scan()
 		end
 	end
 
+	local food, hpot, water, mpot
 	if select(2, IsInInstance()) == "arena" then
-		self:Edit("AutoHP", self.db.macroHP, bests.conjfood.id or bests.hstone.id, nil, bests.hstone.id, bests.bandage.id)
-		self:Edit("AutoMP", self.db.macroMP, bests.conjwater.id or bests.pvpwater.id or bests.mstone.id, nil, bests.mstone.id)
+		food = bests.conjfood.id or bests.hstone.id
+		water = bests.conjwater.id or bests.pvpwater.id or bests.mstone.id
 	else
-		self:Edit("AutoHP", self.db.macroHP, bests.conjfood.id or bests.percfood.id or bests.food.id or bests.hstone.id or bests.hppot.id, bests.hppot.id, bests.hstone.id, bests.bandage.id)
-		self:Edit("AutoMP", self.db.macroMP, bests.conjwater.id or bests.percwater.id or bests.water.id or bests.mstone.id or bests.mppot.id, bests.mppot.id, bests.mstone.id)
+		food = bests.conjfood.id or bests.percfood.id or bests.food.id or bests.hstone.id or bests.hppot.id
+		hpot = bests.hppot.id
+		water = bests.conjwater.id or bests.percwater.id or bests.water.id or bests.mstone.id or bests.mppot.id
+		mpot = bests.mppot.id
 	end
+
+	self:Edit("AutoHP", self.db.macroHP, food, hpot, bests.hstone.id, bests.bandage.id)
+	self:Edit("AutoMP", self.db.macroMP, water, mpot, bests.mstone.id)
+
 	dirty = false
 end
 

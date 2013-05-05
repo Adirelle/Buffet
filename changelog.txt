@@ -1,3 +1,24 @@
+5.1.0.41-Beta
+    Fix macro generator
+
+5.1.0.40-Beta
+    Panda pots
+
+5.0.1.39-Beta
+    Update database
+    Herbalism HP and MP pots (thanks leks0d)
+    New bandages (thanks freebaser)
+
+5.0.1.38-Beta
+    Add a few missing MoP food/water items (thanks StephenClouse)
+
+5.0.1.37-Beta
+    Updates for 5.0, may not be all the new foods (thanks rubenvincenten)
+
+4.3.0.36-Beta
+    Fixed for 4.3 macro icon change. (Thanks Adirelle)
+    Add support for AddonLoader's LoadOn-InterfaceOptions thingy
+
 4.1.0.35-Beta
     Add rogue pot
     Fix conj. mana cake.
