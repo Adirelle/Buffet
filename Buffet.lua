@@ -26,6 +26,34 @@ local function TableStuffer(...)
 end
 for i,v in pairs(items) do bests[i], items[i] = {}, TableStuffer(string.split("\n", v)) end
 
+local PT3 = LibStub('LibPeriodicTable-3.1', true)
+if PT3 then
+	local sets = {
+		bandage   = "Consumable.Bandage.Basic",
+		hstone    = "Consumable.Cooldown.Stone.Health.Warlock",
+		mstone    = "Consumable.Cooldown.Stone.Mana.Mana Stone",
+		hppot     = "Consumable.Cooldown.Potion.Health.Basic",
+		mppot     = "Consumable.Cooldown.Potion.Mana.Basic",
+		water     = "Consumable.Water.Basic",
+		food      = "Consumable.Food.Edible.Basic.Non-Conjured",
+		conjfood  = "Consumable.Food.Edible.Basic.Conjured",
+		conjwater = "Consumable.Food.Edible.Combo.Conjured",
+		percfood  = "Consumable.Food.Percent.Basic",
+		percwater = "Consumable.Water.Percentage",
+		pvpwater  = nil,
+	}
+	for set, pt3set in pairs(sets) do
+		for id, v in PT3:IterateSet(pt3set) do
+			if not allitems[id] then
+				if v == true then
+					v = 0
+				end
+				items[set][id] = v
+				allitems[id] = v
+			end
+		end
+	end
+end
 
 local function FindHerbalsimLevel(...)
 	for i = 1, select('#', ...) do

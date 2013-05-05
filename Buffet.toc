@@ -14,6 +14,8 @@
 ## X-LoadOn-Always: delayed
 ## X-LoadOn-InterfaceOptions: Buffet
 
+## OptionalDeps: LibPeriodicTable-3.1
+
 LibStub.lua
 tekIDmemo.lua
 tekKonfigAboutPanel.lua
