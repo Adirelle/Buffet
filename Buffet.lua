@@ -151,8 +151,15 @@ function Buffet:Scan()
 				local _, stack = GetContainerItemInfo(bag,slot)
 				for set,setitems in pairs(items) do
 					local thisbest, val = bests[set], setitems[id]
-					if val and (not thisbest.val or (thisbest.val < val or thisbest.val == val and thisbest.stack > stack)) then
-						thisbest.id, thisbest.val, thisbest.stack = id, val, stack
+					if val then
+						if set == 'percfood' then
+							thisbest, val = bests.food, UnitHealthMax('player')*val/100
+						elseif set == 'percmana' then
+							thisbest, val = bests.water, UnitManaMax('player')*val/100
+						end
+						if not thisbest.val or (thisbest.val < val or thisbest.val == val and thisbest.stack > stack) then
+							thisbest.id, thisbest.val, thisbest.stack = id, val, stack
+						end
 					end
 				end
 			end
@@ -164,9 +171,9 @@ function Buffet:Scan()
 		food = bests.conjfood.id or bests.hstone.id
 		water = bests.conjwater.id or bests.pvpwater.id or bests.mstone.id
 	else
-		food = bests.conjfood.id or bests.percfood.id or bests.food.id or bests.bonusfood.id or bests.hstone.id or bests.hppot.id
+		food = bests.conjfood.id or bests.food.id or bests.bonusfood.id or bests.hstone.id or bests.hppot.id
 		hpot = bests.hppot.id
-		water = bests.conjwater.id or bests.percwater.id or bests.water.id or bests.mstone.id or bests.mppot.id
+		water = bests.conjwater.id or bests.water.id or bests.mstone.id or bests.mppot.id
 		mpot = bests.mppot.id
 	end
 
